@@ -9,6 +9,13 @@ __pycache__/
 # Citi Bike raw zips
 *.zip
 2024*.zip
+data/
+*.csv
+*.zip
+2024-*/
+.terraform/
+*.tfstate
+*.tfstate.*
 
 
 # Distribution / packaging
