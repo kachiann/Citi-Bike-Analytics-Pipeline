@@ -12,6 +12,8 @@ This project builds a fully reproducible batch data pipeline on GCP that:
 - Loads optimized tables into BigQuery
 - Serves analytics via a dashboard
 
+## Architecture Diagram
+
 ## Business Questions
 - How does ridership evolve over time?
 - What is the distribution of trips by rider type (member vs casual)?
