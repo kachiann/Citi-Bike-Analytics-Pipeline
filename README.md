@@ -3,16 +3,30 @@ Citi Bike is a public bicycle-sharing system serving New York City and parts of 
 
 ## Problem Description
 
-Citi Bike publishes monthly trip history files containing millions of ride records. These datasets are large, time-based, and updated regularly, making them ideal for analytical workloads.
+Citi Bike publishes monthly trip history files containing millions of ride records. These datasets are large, time-based, and updated regularly, making them ideal for analytical workloads. In particular, this is an end-to-end cloud data engineering project built on GCP, processing 44M+ NYC Citi Bike trips (2024) into an optimized analytics warehouse and interactive dashboard.
 
-This project builds a fully reproducible batch data pipeline on GCP that:
-- Ingests monthly Citi Bike trip data
-- Stores raw data in a data lake (GCS)
-- Processes and cleans data using Spark
-- Loads optimized tables into BigQuery
-- Serves analytics via a dashboard
+## Tech Stack
+- Cloud: Google Cloud Platform (GCP)
+- Infrastructure as Code: Terraform
+- Data Lake: Google Cloud Storage (GCS)
+- Data Warehouse: BigQuery (Partitioned & Clustered)
+- Transformations: SQL (ELT pattern)
+- Dashboard: Streamlit
 
-## Architecture Diagram
+## Architecture
+
+```
+Citi Bike Monthly Data (CSV)
+        ↓
+GCS (Data Lake)
+        ↓
+BigQuery (raw → staging → marts)
+        ↓
+Partitioned fact_trips table
+        ↓
+Streamlit Analytics Dashboard
+```
+
 
 ## Business Questions
 - How does ridership evolve over time?
