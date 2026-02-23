@@ -34,9 +34,29 @@ Streamlit Analytics Dashboard
 - How do electric vs classic bike trends change?
 - How does usage vary across weekdays and weekends?
 
+
 ## How to run Locally
-`terraform init`
+### Installation
 
-`terraform apply`
+1. Clone this repository
+```bash
+git clone https://github.com/kachiann/Citi-Bike-Analytics-Pipeline.git
+```
+2. Go to folder
+```bash
+cd terraform
+```
+3. Run
+   
+   ```terraform init```
 
-`streamlit run streamlit_app.py`
+   ```terraform apply```
+
+## Usage
+
+Run the Streamlit app:
+```bash
+streamlit run streamlit_app.py
+```
+The app will open in your default web browser.
+
