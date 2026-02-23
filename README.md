@@ -73,6 +73,7 @@ pip install -r requirements.txt
 ```bash
 streamlit run streamlit_app.py
 ```
-![Alt](citibike_streamlit.png)
+<img width="2250" height="1132" alt="image" src="https://github.com/user-attachments/assets/201bd51e-639b-4f63-96c8-cbc8a557213a" />
+
 The app will open in your default web browser.
 
