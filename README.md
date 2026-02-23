@@ -28,7 +28,15 @@ Streamlit Analytics Dashboard
 ```
 
 
-## Business Questions
+## Business Questions Answered
 - How does ridership evolve over time?
-- What is the distribution of trips by rider type (member vs casual)?
-- How do electric vs classic bike usage trends change over time?
+- What is the distribution of trips by rider type?
+- How do electric vs classic bike trends change?
+- How does usage vary across weekdays and weekends?
+
+## How to run Locally
+`terraform init`
+
+`terraform apply`
+
+`streamlit run streamlit_app.py`
