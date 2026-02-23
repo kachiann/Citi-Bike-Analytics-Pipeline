@@ -65,9 +65,14 @@ Ensure:
 
 ## Usage
 
-Run the Streamlit app:
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+2. Start Streamlit:
 ```bash
 streamlit run streamlit_app.py
 ```
+![Alt](citibike_streamlit.png)
 The app will open in your default web browser.
 
