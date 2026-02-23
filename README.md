@@ -1,32 +1,38 @@
 # Citi Bike Analytics Pipeline
-Citi Bike is a public bicycle-sharing system serving New York City and parts of Jersey City. Launched in 2013, it provides short-term bike rentals through a network of docking stations and an app-based access system. It is one of the largest and most heavily used bike-share programs in the United States.
+End-to-end cloud data engineering project built on Google Cloud Platform (GCP), processing 44+ million NYC Citi Bike trips (2024) into a scalable analytics warehouse and interactive dashboard.
 
-## Problem Description
+## Project Overview
 
-Citi Bike publishes monthly trip history files containing millions of ride records. These datasets are large, time-based, and updated regularly, making them ideal for analytical workloads. In particular, this is an end-to-end cloud data engineering project built on GCP, processing 44M+ NYC Citi Bike trips (2024) into an optimized analytics warehouse and interactive dashboard.
+Citi Bike is one of the largest public bike-sharing systems in the United States. It publishes monthly trip history datasets containing millions of ride records.
 
-## Tech Stack
-- Cloud: Google Cloud Platform (GCP)
-- Infrastructure as Code: Terraform
-- Data Lake: Google Cloud Storage (GCS)
-- Data Warehouse: BigQuery (Partitioned & Clustered)
-- Transformations: SQL (ELT pattern)
-- Dashboard: Streamlit
+These datasets are:
+- Large (millions of rows per month)
+- Time-series based
+- Updated regularly
+- Ideal for analytical workloads
+
+This project demonstrates how to design and implement a production-style batch data pipeline in the cloud — from raw data ingestion to business-ready analytics.
 
 ## Architecture
 
 ```
 Citi Bike Monthly Data (CSV)
         ↓
-GCS (Data Lake)
+Google Cloud Storage (Data Lake)
         ↓
 BigQuery (raw → staging → marts)
         ↓
-Partitioned fact_trips table
+Partitioned & Clustered fact_trips table
         ↓
 Streamlit Analytics Dashboard
 ```
-
+## Tech Stack
+- Cloud: Google Cloud Platform (GCP)
+- Infrastructure as Code: Terraform
+- Data Lake: Google Cloud Storage (GCS)
+- Data Warehouse: BigQuery (Partitioned & Clustered)
+- Data Processing: SQL (ELT architecture)
+- Analytics Layer: Streamlit
 
 ## Business Questions Answered
 - How does ridership evolve over time?
@@ -41,11 +47,16 @@ Streamlit Analytics Dashboard
 1. Clone this repository
 ```bash
 git clone https://github.com/kachiann/Citi-Bike-Analytics-Pipeline.git
+cd Citi-Bike-Analytics-Pipeline
 ```
 2. Go to folder
 ```bash
 cd terraform
 ```
+Ensure:
+- `gcloud` is installed
+- Application Default Credentials are configured
+
 3. Run
    
    ```terraform init```
