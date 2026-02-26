@@ -65,9 +65,13 @@ Ensure:
 
 ## Usage
 
-Run the Streamlit app:
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+2. Start Streamlit:
 ```bash
 streamlit run streamlit_app.py
 ```
-The app will open in your default web browser.
+<img width="2250" height="1132" alt="image" src="https://github.com/user-attachments/assets/201bd51e-639b-4f63-96c8-cbc8a557213a" />
 
