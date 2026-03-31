@@ -57,11 +57,11 @@ Ensure:
 - `gcloud` is installed
 - Application Default Credentials are configured
 
-3. Run
-   
-   ```terraform init```
-
-   ```terraform apply```
+3. Run 
+   ```bash
+   terraform init
+   terraform apply
+   ```
 
 ## Usage
 
