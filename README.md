@@ -34,6 +34,35 @@ Streamlit Analytics Dashboard
 - Data Processing: SQL (ELT architecture)
 - Analytics Layer: Streamlit
 
+## Batch Orchestration
+
+This project follows an end-to-end batch workflow:
+
+1. Provision infrastructure with Terraform
+2. Ingest monthly Citi Bike CSV files into Google Cloud Storage
+3. Load raw data into BigQuery
+4. Transform raw data into staging and marts tables
+5. Build a partitioned and clustered `fact_trips` table
+6. Serve analytics through Streamlit
+
+## Transformations
+
+The analytics layer follows a structured ELT approach in BigQuery:
+
+- **raw**: landed trip data from GCS with minimal changes
+- **staging**: cleaned and standardized trip records
+- **marts**: business-ready analytics tables
+- **fact_trips**: partitioned by `ride_date` and clustered by `member_casual` and `rideable_type`
+
+## Warehouse Design Choices
+
+The `fact_trips` table is:
+
+- **Partitioned by `ride_date`** to optimize time-series analysis and reduce query scan cost
+- **Clustered by `member_casual` and `rideable_type`** because these fields are frequently used in dashboard filters and business questions
+
+These choices improve performance for trend analysis, rider segmentation, and bike-type comparisons.
+
 ## Business Questions Answered
 - How does ridership evolve over time?
 - What is the distribution of trips by rider type?
@@ -42,6 +71,12 @@ Streamlit Analytics Dashboard
 
 
 ## How to run Locally
+### Prerequisites
+- Google Cloud SDK installed
+- Application Default Credentials configured
+- Python 3.10+
+- Terraform installed
+
 ### Installation
 
 1. Clone this repository
@@ -57,7 +92,7 @@ Ensure:
 - `gcloud` is installed
 - Application Default Credentials are configured
 
-3. Run 
+3. Provision cloud infrastructure. Run 
    ```bash
    terraform init
    terraform apply
