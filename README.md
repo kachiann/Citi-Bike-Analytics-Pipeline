@@ -102,6 +102,7 @@ Ensure:
 
 1. Install dependencies:
 ```bash
+cd ..
 pip install -r requirements.txt
 ```
 2. Start Streamlit:
