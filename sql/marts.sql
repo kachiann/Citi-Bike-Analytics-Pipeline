@@ -7,5 +7,7 @@ SELECT
     COUNT(*) AS trip_count,
     AVG(trip_duration_min) AS avg_trip_duration_min
 FROM stg_trips
+WHERE ride_date >= DATE '2024-01-01'
+  AND ride_date <  DATE '2025-01-01'
 GROUP BY 1, 2, 3, 4
 ORDER BY 1, 2, 3, 4;
