@@ -1,113 +1,132 @@
 # Citi Bike Analytics Pipeline
-End-to-end cloud data engineering project built on Google Cloud Platform (GCP), processing 44+ million NYC Citi Bike trips (2024) into a scalable analytics warehouse and interactive dashboard.
 
-## Project Overview
+End-to-end analytics engineering project for NYC Citi Bike trip data, implemented with a cloud-first GCP architecture and a local DuckDB development mode.
 
-Citi Bike is one of the largest public bike-sharing systems in the United States. It publishes monthly trip history datasets containing millions of ride records.
+## Project goal
 
-These datasets are:
-- Large (millions of rows per month)
-- Time-series based
-- Updated regularly
-- Ideal for analytical workloads
+This project transforms monthly Citi Bike trip history data into an analytics-ready warehouse and an interactive dashboard for time-series ridership analysis. It is designed to demonstrate production-style batch data engineering patterns across cloud storage, warehousing, SQL transformation, and analytics delivery.
 
-This project demonstrates how to design and implement a production-style batch data pipeline in the cloud — from raw data ingestion to business-ready analytics.
+## Architectures
 
-## Architecture
+### Cloud architecture
 
-```
-Citi Bike Monthly Data (CSV)
-        ↓
-Google Cloud Storage (Data Lake)
-        ↓
-BigQuery (raw → staging → marts)
-        ↓
-Partitioned & Clustered fact_trips table
-        ↓
-Streamlit Analytics Dashboard
-```
-## Tech Stack
-- Cloud: Google Cloud Platform (GCP)
-- Infrastructure as Code: Terraform
-- Data Lake: Google Cloud Storage (GCS)
-- Data Warehouse: BigQuery (Partitioned & Clustered)
-- Data Processing: SQL (ELT architecture)
-- Analytics Layer: Streamlit
+Citi Bike monthly CSV files  
+→ Google Cloud Storage (raw data lake)  
+→ BigQuery (raw → staging → marts)  
+→ partitioned and clustered fact tables  
+→ Streamlit dashboard on Cloud Run
 
-## Batch Orchestration
+### Local development mode
 
-This project follows an end-to-end batch workflow:
+Citi Bike monthly CSV files  
+→ local raw storage  
+→ DuckDB (raw → staging → marts)  
+→ Streamlit dashboard
 
-1. Provision infrastructure with Terraform
-2. Ingest monthly Citi Bike CSV files into Google Cloud Storage
-3. Load raw data into BigQuery
-4. Transform raw data into staging and marts tables
-5. Build a partitioned and clustered `fact_trips` table
-6. Serve analytics through Streamlit
+The local mode makes it easy to iterate on SQL transformations and dashboard logic without provisioning cloud resources for every development cycle.
 
-## Transformations
+## Tech stack
 
-The analytics layer follows a structured ELT approach in BigQuery:
+### Cloud
+- Google Cloud Storage (GCS)
+- BigQuery
+- Cloud Run
+- Terraform
 
-- **raw**: landed trip data from GCS with minimal changes
-- **staging**: cleaned and standardized trip records
-- **marts**: business-ready analytics tables
-- **fact_trips**: partitioned by `ride_date` and clustered by `member_casual` and `rideable_type`
+### Local / analytics
+- DuckDB
+- SQL
+- Python
+- Streamlit
+- Plotly
 
-## Warehouse Design Choices
+## Data model
 
-The `fact_trips` table is:
+The warehouse follows a layered ELT pattern:
 
-- **Partitioned by `ride_date`** to optimize time-series analysis and reduce query scan cost
-- **Clustered by `member_casual` and `rideable_type`** because these fields are frequently used in dashboard filters and business questions
+### raw
+Landed source trip files with minimal modification.
 
-These choices improve performance for trend analysis, rider segmentation, and bike-type comparisons.
+### staging
+Cleaned and standardized trip records with typed timestamps and derived analytical columns such as:
+- `ride_date`
+- `ride_month`
+- `ride_dow`
+- `day_type`
+- `trip_duration_min`
 
-## Business Questions Answered
-- How does ridership evolve over time?
-- What is the distribution of trips by rider type?
-- How do electric vs classic bike trends change?
-- How does usage vary across weekdays and weekends?
+### marts
+Business-ready analytical tables optimized for dashboard queries.
 
+Current mart:
+- `fact_daily_trips`
 
-## How to run Locally
+## Warehouse design choices
+
+### BigQuery
+In the cloud warehouse, analytical fact tables are designed to:
+- partition by `ride_date` for time-series pruning and reduced scan costs
+- cluster by frequently filtered dashboard dimensions such as `member_casual` and `rideable_type`
+
+Partitioning by the primary time dimension and clustering by commonly filtered columns is a standard BigQuery optimization pattern for large analytical workloads [web:275][web:279].
+
+### DuckDB
+In local mode, DuckDB provides a lightweight analytical engine for:
+- reading multiple monthly CSV files
+- iterating on SQL transformations locally
+- supporting dashboard development without cloud dependencies
+
+DuckDB is a strong fit for local analytics workflows because it supports modern analytical SQL and efficient local querying over large datasets [web:271][web:266].
+
+## Business questions
+
+- How does Citi Bike ridership evolve over time?
+- How is ridership distributed between member and casual riders?
+- How do electric and classic bike usage patterns differ?
+- How does weekday usage compare with weekend usage?
+
+## How to run locally
+
 ### Prerequisites
-- Google Cloud SDK installed
-- Application Default Credentials configured
 - Python 3.10+
-- Terraform installed
+- Make
+- Citi Bike source files placed in `data/raw/`
 
-### Installation
-
-1. Clone this repository
+### Setup
 ```bash
-git clone https://github.com/kachiann/Citi-Bike-Analytics-Pipeline.git
-cd Citi-Bike-Analytics-Pipeline
+make install
+make build
+make app
 ```
-2. Go to folder
+
+## How to run on GCP
+
+### Prerequisites
+- Google Cloud SDK
+- Terraform
+- Application Default Credentials configured
+- A GCP project with billing enabled
+
+### Provision infrastructure
 ```bash
 cd terraform
+terraform init
+terraform apply
 ```
-Ensure:
-- `gcloud` is installed
-- Application Default Credentials are configured
 
-3. Provision cloud infrastructure. Run 
-   ```bash
-   terraform init
-   terraform apply
-   ```
+### Cloud components
+- GCS bucket for raw trip files
+- BigQuery dataset for analytics tables
+- optional Cloud Run deployment for the Streamlit dashboard
 
-## Usage
+Cloud Run is a common GCP target for containerized Streamlit apps and works well for lightweight analytics dashboards [web:281][web:287].
 
-1. Install dependencies:
-```bash
-cd ..
-pip install -r requirements.txt
-```
-2. Start Streamlit:
-```bash
-streamlit run streamlit_app.py
-```
-<img width="2250" height="1132" alt="image" src="https://github.com/user-attachments/assets/201bd51e-639b-4f63-96c8-cbc8a557213a" />
+## Notes
 
+- Local raw data and DuckDB files are gitignored.
+- The local analytical mart currently covers the subset of 2024 data loaded into the repository workflow.
+- Raw and staging layers preserve source truth, while marts are scoped for analytical consistency.
+
+## Dashboard
+
+![Citi Bike dashboard](https://github.com/user-attachments/assets/201bd51e-639b-4f63-96c8-cbc8a557213a)
