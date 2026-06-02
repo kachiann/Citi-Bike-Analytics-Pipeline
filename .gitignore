@@ -17,6 +17,15 @@ data/
 *.tfstate
 *.tfstate.*
 
+# Local data
+data/raw/*
+data/staging/*
+data/warehouse/*
+
+# Keep folder structure
+!data/raw/.gitignore
+!data/staging/.gitignore
+!data/warehouse/.gitignore
 
 # Distribution / packaging
 .Python
@@ -219,3 +228,6 @@ marimo/_lsp/
 __marimo__/
 .terraform/
 *.tfstate*
+
+# Streamlit
+.streamlit/
