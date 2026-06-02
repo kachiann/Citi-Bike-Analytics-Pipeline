@@ -8,6 +8,7 @@ SQL_DIR = BASE_DIR / "sql"
 SQL_FILES = [
     "raw.sql",
     "staging.sql",
+    "marts.sql"
 ]
 
 def run_sql_file(con, file_path: Path) -> None:
