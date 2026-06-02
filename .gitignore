@@ -6,16 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
-# Citi Bike raw zips
-*.zip
-2024*.zip
-data/
-*.csv
-*.zip
-2024-*/
-.terraform/
-*.tfstate
-*.tfstate.*
+
 
 # Local data
 data/raw/*
