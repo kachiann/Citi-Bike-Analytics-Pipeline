@@ -68,7 +68,7 @@ In the cloud warehouse, analytical fact tables are designed to:
 - partition by `ride_date` for time-series pruning and reduced scan costs
 - cluster by frequently filtered dashboard dimensions such as `member_casual` and `rideable_type`
 
-Partitioning by the primary time dimension and clustering by commonly filtered columns is a standard BigQuery optimization pattern for large analytical workloads [web:275][web:279].
+Partitioning by the primary time dimension and clustering by commonly filtered columns is a standard BigQuery optimization pattern for large analytical workloads.
 
 ### DuckDB
 In local mode, DuckDB provides a lightweight analytical engine for:
@@ -76,7 +76,7 @@ In local mode, DuckDB provides a lightweight analytical engine for:
 - iterating on SQL transformations locally
 - supporting dashboard development without cloud dependencies
 
-DuckDB is a strong fit for local analytics workflows because it supports modern analytical SQL and efficient local querying over large datasets [web:271][web:266].
+DuckDB is a strong fit for local analytics workflows because it supports modern analytical SQL and efficient local querying over large datasets.
 
 ## Business questions
 
@@ -119,7 +119,7 @@ terraform apply
 - BigQuery dataset for analytics tables
 - optional Cloud Run deployment for the Streamlit dashboard
 
-Cloud Run is a common GCP target for containerized Streamlit apps and works well for lightweight analytics dashboards [web:281][web:287].
+Cloud Run is a common GCP target for containerized Streamlit apps and works well for lightweight analytics dashboards.
 
 ## Notes
 
