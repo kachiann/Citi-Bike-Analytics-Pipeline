@@ -1,6 +1,6 @@
 # Citi Bike Analytics Pipeline
 
-End-to-end analytics engineering project for NYC Citi Bike trip data, implemented with a cloud-first GCP architecture and a local DuckDB development mode.
+End-to-end analytics engineering project for NYC Citi Bike trip data, implemented with a cloud-first GCP architecture and a local DuckDB development mode ([live app](https://citi-bike-analytics-local.streamlit.app/)).
 
 ## Project goal
 
